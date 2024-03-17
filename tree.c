@@ -6,6 +6,7 @@ Topic:Binary Search Tree
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
+#include<math.h>
 //Define a structure called bstnode with elements data(int) and two pointers(bstnode) called left and right.
 typedef struct bstnode
 {
@@ -51,20 +52,37 @@ bool search(bstnode *root ,int key){
     // //when key<root->data  then move to the left child and call the function recursively
     else  return search(root->left,key);
 }
+int max(int x,int y){
+    if(x>y)
+        return x;
+    else
+        return y;
+}
+
+int height(bstnode *root){
+    if (root == NULL)
+    	return -1;
+    /* compute the height of each SubTree */
+    return max(height(root->left), height(root->right)) + 1;
+}
 int main()
 {
     bstnode *root = NULL;
     //insert nodes in binary tree
-    root = insert(root,56);
+    root = insert(root,6);
     root = insert(root,51);
-    root = insert(root,54);
+    root = insert(root,24);
     root = insert(root,58);
     root = insert(root,52);
+    root = insert(root,72);
+    root = insert(root,42);
+    root = insert(root,82);
     
     int key = 52;
     if (search(root, key))
-        printf("\n %d is present in BST" ,key);
+        printf("\n%d is present in BST\n" ,key);
     else
-        printf("\n %d is not present in BST",key);
+        printf("\n%d is not present in BST\n",key);
+    printf("Height of the BST ->%d",height(root));
     return 0;
 }
